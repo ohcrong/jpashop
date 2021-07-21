@@ -24,7 +24,10 @@ public class Order {
 
     @OneToMany(mappedBy = "order")
     private List<OrderItem> orderItems = new ArrayList<>();
+
     private Delivery delivery;
+
     private LocalDateTime localDateTime;
+
     private OrderStatus orderStatus; //주문상태 [ORDER, CANCEL]
 }
