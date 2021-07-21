@@ -25,9 +25,12 @@ public class Order {
     @OneToMany(mappedBy = "order")
     private List<OrderItem> orderItems = new ArrayList<>();
 
-    private Delivery delivery;
+    @OneToOne
+    @JoinColumn(name = "delivery_id")
+    private Delivery delivery; //1:1관계일때는 FK를 ACCESS가 더 많은 곳에 둠
 
     private LocalDateTime localDateTime;
 
+    @Enumerated(EnumType.STRING)
     private OrderStatus orderStatus; //주문상태 [ORDER, CANCEL]
 }
