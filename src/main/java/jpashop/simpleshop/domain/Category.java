@@ -26,4 +26,11 @@ public class Category {
         inverseJoinColumns = @JoinColumn(name = "item_id")) //관계형DB에서는 중간에서 풀어주는 테이블 필요, 필드추가 불가->지양
     private List<Item> items = new ArrayList<>();
 
+    @ManyToOne
+    @JoinColumn(name = "parent_id")
+    private Category parent; //계층구조 mapping
+
+    @OneToMany(mappedBy = "parent")
+    private List<Category> child = new ArrayList<>();
+
 }
