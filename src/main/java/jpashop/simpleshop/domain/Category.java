@@ -24,8 +24,8 @@ public class Category {
 
     @ManyToMany
     @JoinTable(name = "category_item",
-        joinColumns =  @JoinColumn(name = "category_id"),
-        inverseJoinColumns = @JoinColumn(name = "item_id")) //관계형DB에서는 중간에서 풀어주는 테이블 필요, 필드추가 불가->지양
+            joinColumns = @JoinColumn(name = "category_id"),
+            inverseJoinColumns = @JoinColumn(name = "item_id")) //관계형DB에서는 중간에서 풀어주는 테이블 필요, 필드추가 불가->지양
     private List<Item> items = new ArrayList<>();
 
     @ManyToOne(fetch = LAZY)
@@ -34,5 +34,11 @@ public class Category {
 
     @OneToMany(mappedBy = "parent")
     private List<Category> child = new ArrayList<>();
+
+    //==연관관계 메서드==//
+    public void addChildCategory(Category child) {
+        this.child.add(child);
+        child.setParent(this);
+    }
 
 }
