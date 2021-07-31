@@ -1,6 +1,7 @@
 package jpashop.simpleshop.domain.item;
 
 import jpashop.simpleshop.domain.Category;
+import jpashop.simpleshop.exception.NotEnoughStockException;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -35,6 +36,17 @@ public abstract class Item {
      */
     public void addStock(int quantity) {
         this.stockQuantity += quantity;
+    }
+
+    /**
+     * 재고 감소
+     */
+    public void removeStock(int quantity) {
+        int restStock = this.stockQuantity -quantity ;
+        if (restStock < 0) {
+            throw new NotEnoughStockException("need more stock");
+        }
+        this.stockQuantity = restStock;
     }
 
 
