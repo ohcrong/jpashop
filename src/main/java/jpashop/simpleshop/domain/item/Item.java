@@ -37,7 +37,7 @@ public abstract class Item {
     public void addStock(int quantity) {
         this.stockQuantity += quantity;
     }
-
+    //setter변경 보다 로직으로
     /**
      * 재고 감소
      */
