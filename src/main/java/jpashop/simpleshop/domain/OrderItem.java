@@ -30,6 +30,8 @@ public class OrderItem {
     private int orderPrice; //주문 가격
     private int count; //주문 수량
 
+    //==비지니스 로직==//
     public void cancel() {
+        getItem().addStock(count);
     }
 }
