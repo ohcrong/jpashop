@@ -45,6 +45,15 @@ public class OrderService {
         //Order 엔티티에 OrderItem, Delivery 모두 CascadeType.ALL 되어있기 때문에 persist 한번만
         return order.getId();
     }
-    //취소
+
+    /**
+     * 주문 취소
+     */
+    public void cancelOrder(Long orderId) {
+        //엔티티 조회
+        Order order = orderRepository.findOne(orderId);
+        //주문 취소
+        order.cancel();
+    }
     //검색
 }
