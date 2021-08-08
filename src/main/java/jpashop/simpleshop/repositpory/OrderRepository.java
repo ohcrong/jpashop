@@ -2,11 +2,9 @@ package jpashop.simpleshop.repositpory;
 
 import jpashop.simpleshop.domain.Order;
 import lombok.RequiredArgsConstructor;
-import org.hibernate.validator.constraints.EAN;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
-import java.util.List;
 
 @Repository
 @RequiredArgsConstructor
