@@ -24,6 +24,7 @@ public class OrderService {
     /**
      * 주문
      */
+    @Transactional
     public Long order(Long memberId, Long itemId, int count) {
         //엔티티 조회
         Member member = memberRepository.findOne(memberId);
@@ -41,6 +42,7 @@ public class OrderService {
 
         //주문 저장
         orderRepository.save(order);
+        //Order 엔티티에 OrderItem, Delivery 모두 CascadeType.ALL 되어있기 때문에 persist 한번만
         return order.getId();
     }
     //취소
