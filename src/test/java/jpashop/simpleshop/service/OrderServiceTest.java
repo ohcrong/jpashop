@@ -1,9 +1,6 @@
 package jpashop.simpleshop.service;
 
-import jpashop.simpleshop.domain.Address;
-import jpashop.simpleshop.domain.Member;
-import jpashop.simpleshop.domain.Order;
-import jpashop.simpleshop.domain.OrderStatus;
+import jpashop.simpleshop.domain.*;
 import jpashop.simpleshop.domain.item.Book;
 import jpashop.simpleshop.exception.NotEnoughStockException;
 import jpashop.simpleshop.repositpory.OrderRepository;
@@ -67,13 +64,24 @@ public class OrderServiceTest {
         fail("재고 수량 부족 예외가 발생해야합니다");
     }
 
-
     @Test
     public void 주문취소() throws Exception {
         //given
-        
+        Member member = createMember();
+        Book book = createBook(10000, 10, "JPA101");
+
+        int orderCount = 2;
+
+        Long orderId = orderService.order(member.getId(), book.getId(), orderCount);
+
         //when
+        orderService.cancelOrder(orderId);
+
         //then
+        Order getOrder = orderRepository.findOne(orderId);
+        Assert.assertEquals("주문상태가 CANCEL이어야한다", OrderStatus.CANCEL, getOrder.getOrderStatus());
+        Assert.assertEquals("취소된 만큰 재고수량 원복", 10, book.getStockQuantity());
+
     }
 
     private Book createBook(int price, int stockQuantity, String name) {
