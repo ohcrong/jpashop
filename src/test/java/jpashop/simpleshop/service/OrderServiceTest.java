@@ -5,6 +5,7 @@ import jpashop.simpleshop.domain.Member;
 import jpashop.simpleshop.domain.Order;
 import jpashop.simpleshop.domain.OrderStatus;
 import jpashop.simpleshop.domain.item.Book;
+import jpashop.simpleshop.exception.NotEnoughStockException;
 import jpashop.simpleshop.repositpory.OrderRepository;
 import org.junit.Assert;
 import org.junit.Test;
@@ -33,16 +34,9 @@ public class OrderServiceTest {
     @Test
     public void 상품주문() throws Exception {
         //given
-        Member member = new Member();
-        member.setName("둘리");
-        member.setAddress(new Address("서울","종로1길","123-45"));
-        entityManager.persist(member);
+        Member member = createMember();
 
-        Book book = new Book();
-        book.setName("JPA101");
-        book.setPrice(10000);
-        book.setStockQuantity(10);
-        entityManager.persist(book);
+        Book book = createBook(10000, 10, "JPA101");
 
         int count = 2;
 
@@ -57,7 +51,23 @@ public class OrderServiceTest {
         Assert.assertEquals("주문 가격은 가격 * 수량", 20000, getOrder.getTotalPrice());
         Assert.assertEquals("주문 수량만큰 재고가 줄어야한다.", 8, book.getStockQuantity());
     }
-    
+
+    @Test(expected = NotEnoughStockException.class)
+    public void 상품주문_재고수량초과() throws Exception {
+        //given
+        Member member = createMember();
+        Book book = createBook(10000, 10, "JPA101");
+
+        int orderCount = 11;
+
+        //when
+        orderService.order(member.getId(), book.getId(), orderCount);
+
+        //then
+        fail("재고 수량 부족 예외가 발생해야합니다");
+    }
+
+
     @Test
     public void 주문취소() throws Exception {
         //given
@@ -65,13 +75,22 @@ public class OrderServiceTest {
         //when
         //then
     }
-    
-    @Test
-    public void 상품주문_재고수량초과() throws Exception {
-        //given
-        
-        //when
-        //then
+
+    private Book createBook(int price, int stockQuantity, String name) {
+        Book book = new Book();
+        book.setName(name);
+        book.setPrice(price);
+        book.setStockQuantity(stockQuantity);
+        entityManager.persist(book);
+        return book;
+    }
+
+    private Member createMember() {
+        Member member = new Member();
+        member.setName("둘리");
+        member.setAddress(new Address("서울","종로1길","123-45"));
+        entityManager.persist(member);
+        return member;
     }
 
 }
