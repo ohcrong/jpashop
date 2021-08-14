@@ -6,8 +6,11 @@ import jpashop.simpleshop.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+
+import javax.validation.Valid;
 
 @Controller
 @RequiredArgsConstructor
@@ -22,8 +25,13 @@ public class MemberController {
     }
 
     @PostMapping("/members/new")
-    public String create(MemberForm memberForm) {
+    public String create(@Valid MemberForm memberForm, BindingResult result) {
 
+        if (result.hasErrors()) {
+            return "members/createMeberForm";
+        }
+        //BindingResult가 있으면 valid 에러를 가지고 컨트롤러를 탐
+        
         Address address = new Address(memberForm.getCity(), memberForm.getStreet(), memberForm.getZipcode());
 
         Member member = new Member();
