@@ -17,17 +17,13 @@ public class ItemController {
     @GetMapping("/items/new")
     public String createItem(Model model) {
         model.addAttribute("form", new BookForm());
-        return "items/createBookForm";
+        return "items/createItemForm";
     }
 
     @PostMapping("/items/new")
     public String create(BookForm form) {
         Book book = new Book();
-        book.setName(form.getName());
-        book.setPrice(form.getPrice());
-        book.setStockQuantity(form.getStockQuantity());
-        book.setAuthor(form.getAuthor());
-        book.setIsbn(form.getIsbn());
+        book.createBook(form.getName(), form.getPrice(), form.getStockQuantity(), form.getAuthor(), form.getIsbn());
 
         itemService.saveItem(book);
         return "redirect:/items";
