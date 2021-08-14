@@ -28,7 +28,7 @@ public class MemberController {
     public String create(@Valid MemberForm memberForm, BindingResult result) {
 
         if (result.hasErrors()) {
-            return "members/createMeberForm";
+            return "members/createMemberForm";
         }
         //BindingResult가 있으면 valid 에러를 가지고 컨트롤러를 탐
         
