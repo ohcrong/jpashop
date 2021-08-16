@@ -1,6 +1,8 @@
 package jpashop.simpleshop.service;
 
+import jpashop.simpleshop.domain.item.Book;
 import jpashop.simpleshop.domain.item.Item;
+import jpashop.simpleshop.domain.item.UpdateItemDto;
 import jpashop.simpleshop.repositpory.ItemRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -18,6 +20,13 @@ public class ItemService {
     @Transactional
     public void saveItem(Item item) {
         itemRepository.save(item);
+    }
+
+    @Transactional
+    public void updateItem(UpdateItemDto dto) {
+        Book getBook = (Book) itemRepository.findOne(dto.getId());
+        getBook.updateItem(dto);
+        //Entity 영속화, dirty checking으로 변경
     }
 
     public List<Item> findItems() {
