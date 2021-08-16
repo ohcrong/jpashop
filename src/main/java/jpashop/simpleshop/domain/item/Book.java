@@ -27,4 +27,11 @@ public class Book extends Item{
 
         return book;
     }
+
+    public void updateItem(UpdateItemDto dto) {
+        this.author = dto.getAuthor();
+        this.isbn = dto.getIsbn();
+        this.updateItem(dto.getName(), dto.getPrice(), dto.getStockQuantity());
+
+    }
 }

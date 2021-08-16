@@ -2,6 +2,7 @@ package jpashop.simpleshop.controller;
 
 import jpashop.simpleshop.domain.item.Book;
 import jpashop.simpleshop.domain.item.Item;
+import jpashop.simpleshop.domain.item.UpdateItemDto;
 import jpashop.simpleshop.service.ItemService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -64,15 +65,11 @@ public class ItemController {
 
     @PostMapping("/items/{itemId}/edit")
     public String updateItemForm(@PathVariable String itemId, BookForm form) {
-        Book book = new Book();
-        book.setId(form.getId());
-        book.setName(form.getName());
-        book.setPrice(form.getPrice());
-        book.setStockQuantity(form.getStockQuantity());
-        book.setAuthor(form.getAuthor());
-        book.setIsbn(form.getIsbn());
+        //유저가 itemId에 접근 권한있는지 확인 필요
 
-        itemService.saveItem(book);
+        //controll에서 직접 Entity 호출 -> DTO나 필요 변수만
+        itemService.updateItem(new UpdateItemDto(form));
+
         return "redirect:/items";
     }
 }
