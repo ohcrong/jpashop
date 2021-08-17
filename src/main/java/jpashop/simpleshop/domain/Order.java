@@ -34,10 +34,10 @@ public class Order {
     @JoinColumn(name = "delivery_id")
     private Delivery delivery; //1:1관계일때는 FK를 ACCESS가 더 많은 곳에 둠
 
-    private LocalDateTime localDateTime;
+    private LocalDateTime orderDate;
 
     @Enumerated(EnumType.STRING)
-    private OrderStatus orderStatus; //주문상태 [ORDER, CANCEL]
+    private OrderStatus status; //주문상태 [ORDER, CANCEL]
 
     //==연관관계 메서드==//
     public void setMember(Member member) {
@@ -63,8 +63,8 @@ public class Order {
         for (OrderItem orderItem : orderItems) {
             order.addOrderItem(orderItem);
         }
-        order.setOrderStatus(OrderStatus.ORDER);
-        order.setLocalDateTime(LocalDateTime.now());
+        order.setStatus(OrderStatus.ORDER);
+        order.setOrderDate(LocalDateTime.now());
         return order;
     }
 
@@ -76,7 +76,7 @@ public class Order {
         if (delivery.getDeliveryStatus() == DeliveryStatus.COMP) {
             throw new IllegalStateException("이미 배송완료된 상품은 취소가 불가능합니다.");
         }
-        this.setOrderStatus(OrderStatus.CANCEL);
+        this.setStatus(OrderStatus.CANCEL);
         for (OrderItem orderItem : orderItems) {
             orderItem.cancel();
         }
