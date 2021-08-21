@@ -65,6 +65,7 @@ public class OrderService {
      */
     public List<Order> findOrders(OrderSearch orderSearch) {
         return orderRepository.findAllByString(orderSearch);
+        //단순 repository 위임인 경우 생략 가능
     }
 
 }
