@@ -15,6 +15,18 @@ public class MemberApiController {
 
     private final MemberService memberService;
 
+    @Data
+    @AllArgsConstructor
+    static class Result<T> {
+        private T data;
+    }
+    @Data
+    @AllArgsConstructor
+    static class MemberDto {
+        private String name;
+    }
+
+
     @PostMapping("/api/v1/members")
     public CreateMemberResponse saveMemberV1(@RequestBody @Valid Member member) {
         Long id = memberService.join(member);
