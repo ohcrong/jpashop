@@ -42,7 +42,7 @@ public class MemberApiController {
     static class MemberDto {
         private String name;
     }
-
+    //엔티티 전부 노출, @JsonIgnore보다는 필요 데이터만 dto로 변화
 
     @PostMapping("/api/v1/members")
     public CreateMemberResponse saveMemberV1(@RequestBody @Valid Member member) {
