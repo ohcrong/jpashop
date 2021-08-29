@@ -31,9 +31,7 @@ public class InitDb {
 
         private final EntityManager em;
         public void dbInit1(){
-            Member member = new Member();
-            member.setName("userB");
-            member.setAddress(new Address("seoul","111", "11100"));
+            Member member = createMember("userA", "seoul", "111", "11100");
             em.persist(member);
 
             Book book1 = new Book();
@@ -58,10 +56,16 @@ public class InitDb {
 
 
         }
-        public void dbInit2(){
+
+        private Member createMember(String userA, String city, String s, String s2) {
             Member member = new Member();
-            member.setName("userB");
-            member.setAddress(new Address("seoul","222", "22200"));
+            member.setName(userA);
+            member.setAddress(new Address(city, s, s2));
+            return member;
+        }
+
+        public void dbInit2(){
+            Member member = createMember("userB", "busan", "222", "22200");
             em.persist(member);
 
             Book book1 = new Book();
