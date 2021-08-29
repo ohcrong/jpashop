@@ -34,61 +34,61 @@ public class InitDb {
             Member member = createMember("userA", "seoul", "111", "11100");
             em.persist(member);
 
-            Book book1 = new Book();
-            book1.setName("JPA1");
-            book1.setPrice(10000);
-            book1.setStockQuantity(100);
+            Book book1 = createBook("JPA1", 10000, 100);
             em.persist(book1);
 
-            Book book2 = new Book();
-            book2.setName("JPA2");
-            book2.setPrice(20000);
-            book2.setStockQuantity(100);
+            Book book2 = createBook("JPA2", 20000, 200);
             em.persist(book2);
 
             OrderItem orderItem1 = OrderItem.createOrderItem(book1, 10000, 1);
             OrderItem orderItem2 = OrderItem.createOrderItem(book2, 20000, 2);
 
-            Delivery delivery = new Delivery();
-            delivery.setAddress(member.getAddress());
+            Delivery delivery = createDelivery(member);
             Order order = Order.createOrder(member, delivery, orderItem1, orderItem2);
             em.persist(order);
 
-
-        }
-
-        private Member createMember(String userA, String city, String s, String s2) {
-            Member member = new Member();
-            member.setName(userA);
-            member.setAddress(new Address(city, s, s2));
-            return member;
         }
 
         public void dbInit2(){
             Member member = createMember("userB", "busan", "222", "22200");
             em.persist(member);
 
-            Book book1 = new Book();
-            book1.setName("SPRING1");
-            book1.setPrice(10000);
-            book1.setStockQuantity(100);
+            Book book1 = createBook("SPRING1", 10000, 130);
             em.persist(book1);
 
-            Book book2 = new Book();
-            book2.setName("SPRING2");
-            book2.setPrice(20000);
-            book2.setStockQuantity(100);
+            Book book2 = createBook("SPRING2", 20000, 150);
             em.persist(book2);
 
             OrderItem orderItem1 = OrderItem.createOrderItem(book1, 10000, 1);
             OrderItem orderItem2 = OrderItem.createOrderItem(book2, 20000, 2);
 
-            Delivery delivery = new Delivery();
-            delivery.setAddress(member.getAddress());
+            Delivery delivery = createDelivery(member);
             Order order = Order.createOrder(member, delivery, orderItem1, orderItem2);
             em.persist(order);
 
-
         }
+
+        private Delivery createDelivery(Member member) {
+            Delivery delivery = new Delivery();
+            delivery.setAddress(member.getAddress());
+            return delivery;
+        }
+
+        private Book createBook(String name, int i, int i2) {
+            Book book1 = new Book();
+            book1.setName(name);
+            book1.setPrice(i);
+            book1.setStockQuantity(i2);
+            return book1;
+        }
+
+        private Member createMember(String name, String city, String s, String s2) {
+            Member member = new Member();
+            member.setName(name);
+            member.setAddress(new Address(city, s, s2));
+            return member;
+        }
+
+
     }
 }
