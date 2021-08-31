@@ -5,9 +5,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 /**
+ * xToOne (ManyToOne, OneToOne)
  * ORDER
  * ORDER -> MEMBER
- * ORder -> DELIVERY
+ * ORDER -> DELIVERY
  */
 @RestController
 @RequiredArgsConstructor
