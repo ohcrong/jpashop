@@ -1,6 +1,5 @@
 package jpashop.simpleshop.repositpory;
 
-import jpashop.simpleshop.domain.Member;
 import jpashop.simpleshop.domain.Order;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -8,8 +7,6 @@ import org.springframework.util.StringUtils;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
-import javax.persistence.criteria.*;
-import java.util.ArrayList;
 import java.util.List;
 
 @Repository
@@ -77,5 +74,14 @@ public class OrderRepository {
                         "join fetch o.member m" +
                         "join fetch o.delivery d", Order.class
         ).getResultList();
+    }
+
+    public List<OrderSimpleQueryDto> findOrderDtos() {
+        return em.createQuery(
+                "select new jpashop.simpleshop.repository.OrderSimpleQueryDto(o.id, m.name, o.orderDate, o.status, d.address) "+
+                        "from Order o" +
+                        "join o.member m" +
+                        "join o.delivery d", OrderSimpleQueryDto.class)
+                .getResultList();
     }
 }
