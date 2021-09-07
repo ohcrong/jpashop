@@ -1,4 +1,4 @@
-package jpashop.simpleshop.repositpory;
+package jpashop.simpleshop.repositpory.order.simplequery;
 
 import jpashop.simpleshop.domain.Address;
 import jpashop.simpleshop.domain.Order;
