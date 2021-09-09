@@ -6,6 +6,7 @@ import jpashop.simpleshop.domain.OrderItem;
 import jpashop.simpleshop.domain.OrderStatus;
 import jpashop.simpleshop.repositpory.OrderRepository;
 import jpashop.simpleshop.repositpory.OrderSearch;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -41,6 +42,7 @@ public class OrderApiController {
         return collect;
     }
 
+    @Getter
     static class OrderDto {
 
         private Long orderId;
@@ -48,7 +50,7 @@ public class OrderApiController {
         private LocalDateTime orderDate;
         private OrderStatus orderStatus;
         private Address address;
-        private List<OrderItem> orderItems;
+        private List<OrderItem> orderItems; //Dto안에 Entity가 존재하는 것 지양
 
         public OrderDto(Order order) {
             orderId = order.getId();
@@ -56,6 +58,7 @@ public class OrderApiController {
             orderDate = order.getOrderDate();
             orderStatus = order.getStatus();
             address = order.getDelivery().getAddress();
+            order.getOrderItems().stream().forEach(o -> o.getItem().getName());
             orderItems = order.getOrderItems();
         }
     }
