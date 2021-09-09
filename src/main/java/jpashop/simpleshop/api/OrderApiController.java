@@ -27,4 +27,13 @@ public class OrderApiController {
         }
         return all;
     }
+
+    @GetMapping("/api/v2/orders")
+    public List<OrderDto> ordersV2() {
+
+    }
+
+    static class OrderDto {
+
+    }
 }
