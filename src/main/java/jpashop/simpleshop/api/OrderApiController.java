@@ -50,8 +50,13 @@ public class OrderApiController {
         private Address address;
         private List<OrderItem> orderItems;
 
-        public OrderDto(Order o) {
-
+        public OrderDto(Order order) {
+            orderId = order.getId();
+            name = order.getMember().getName();
+            orderDate = order.getOrderDate();
+            orderStatus = order.getStatus();
+            address = order.getDelivery().getAddress();
+            orderItems = order.getOrderItems();
         }
     }
 }
