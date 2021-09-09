@@ -1,13 +1,16 @@
 package jpashop.simpleshop.api;
 
+import jpashop.simpleshop.domain.Address;
 import jpashop.simpleshop.domain.Order;
 import jpashop.simpleshop.domain.OrderItem;
+import jpashop.simpleshop.domain.OrderStatus;
 import jpashop.simpleshop.repositpory.OrderRepository;
 import jpashop.simpleshop.repositpory.OrderSearch;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -40,5 +43,15 @@ public class OrderApiController {
 
     static class OrderDto {
 
+        private Long orderId;
+        private String name;
+        private LocalDateTime orderDate;
+        private OrderStatus orderStatus;
+        private Address address;
+        private List<OrderItem> orderItems;
+
+        public OrderDto(Order o) {
+
+        }
     }
 }
