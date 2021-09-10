@@ -50,7 +50,7 @@ public class OrderApiController {
         private LocalDateTime orderDate;
         private OrderStatus orderStatus;
         private Address address;
-        private List<OrderItem> orderItems; //Dto안에 Entity가 존재하는 것 지양
+        private List<OrderItemDto> orderItems; //Dto안에 Entity가 존재하는 것 지양
 
         public OrderDto(Order order) {
             orderId = order.getId();
@@ -58,13 +58,23 @@ public class OrderApiController {
             orderDate = order.getOrderDate();
             orderStatus = order.getStatus();
             address = order.getDelivery().getAddress();
-            order.getOrderItems().stream().forEach(o -> o.getItem().getName());
-            orderItems = order.getOrderItems();
+            orderItems = order.getOrderItems().stream()
+                    .map(orderItem -> new OrderItemDto(orderItem))
+                    .collect(Collectors.toList());
         }
     }
 
     @Getter
     static class OrderItemDto {
 
+        private String itemName;
+        private int itemPrice;
+        private int itemCount;
+
+        public OrderItemDto(OrderItem orderItem) {
+            itemName = orderItem.getItem().getName();
+            itemPrice = orderItem.getOrderPrice();
+            itemCount = orderItem.getCount();
+        }
     }
 }
