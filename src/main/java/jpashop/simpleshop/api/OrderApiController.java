@@ -62,4 +62,9 @@ public class OrderApiController {
             orderItems = order.getOrderItems();
         }
     }
+
+    @Getter
+    static class OrderItemDto {
+
+    }
 }
