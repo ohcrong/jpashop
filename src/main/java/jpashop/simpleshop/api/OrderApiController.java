@@ -68,12 +68,12 @@ public class OrderApiController {
     static class OrderItemDto {
 
         private String itemName;
-        private int itemPrice;
+        private int orderPrice;
         private int count;
 
         public OrderItemDto(OrderItem orderItem) {
             itemName = orderItem.getItem().getName();
-            itemPrice = orderItem.getOrderPrice();
+            orderPrice = orderItem.getOrderPrice();
             count = orderItem.getCount();
         }
     }
