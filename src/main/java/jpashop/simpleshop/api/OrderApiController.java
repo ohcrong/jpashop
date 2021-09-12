@@ -36,10 +36,10 @@ public class OrderApiController {
     @GetMapping("/api/v2/orders")
     public List<OrderDto> ordersV2() {
         List<Order> order = orderRepository.findAllByString(new OrderSearch());
-        List<OrderDto> collect = order.stream()
+        List<OrderDto> result = order.stream()
                 .map(o -> new OrderDto(o))
                 .collect(Collectors.toList());
-        return collect;
+        return result;
     }
 
     @Getter
