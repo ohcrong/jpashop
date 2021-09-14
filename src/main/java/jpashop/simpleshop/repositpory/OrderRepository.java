@@ -87,4 +87,14 @@ public class OrderRepository {
                 //1대N fetch join을 하면 hibernate는 warning 띄우고 메모리에서 페이징
                 //쿼리로 나온 데이터는 중복된 데이터가 있기 때문에 limit이나 offset하면 원하는 데이터를 못가져옴
     }
+
+    public List<Order> findAllWithMemberDelivery(int offset, int limit) {
+        return em.createQuery(
+                "select o from Order o" +
+                        " join fetch o.member m" +
+                        " join fetch o.delivery d", Order.class)
+                .setFirstResult(offset)
+                .setMaxResults(limit)
+                .getResultList();
+    }
 }
