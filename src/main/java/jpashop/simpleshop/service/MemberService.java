@@ -1,7 +1,7 @@
 package jpashop.simpleshop.service;
 
 import jpashop.simpleshop.domain.Member;
-import jpashop.simpleshop.repositpory.MemberRepository;
+import jpashop.simpleshop.repositpory.MemberRepositoryOld;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,11 +12,11 @@ import java.util.List;
 @Transactional(readOnly = true) //public 메서드에는 공통 적용
 public class MemberService {
 
-    private final MemberRepository memberRepository;
+    private final MemberRepositoryOld memberRepository;
     //변경 방지, 컴파일시점에 생성자 다시 체크
 
     @Autowired
-    public MemberService(MemberRepository memberRepository) {
+    public MemberService(MemberRepositoryOld memberRepository) {
         this.memberRepository = memberRepository;
     }
     //setter인젝션처럼 변경 방지

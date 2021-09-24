@@ -9,7 +9,7 @@ import java.util.List;
 
 @Repository //등록하면 @SpringBootApplication의 하위 페케지 component는 모두 스캔 대상
 @RequiredArgsConstructor
-public class MemberRepository {
+public class MemberRepositoryOld {
 
     private final EntityManager em;
     //spring data jpa가 @PersistenceContext -> @Autowired로 인젝션 지원

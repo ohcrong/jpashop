@@ -6,7 +6,7 @@ import jpashop.simpleshop.domain.Order;
 import jpashop.simpleshop.domain.OrderItem;
 import jpashop.simpleshop.domain.item.Item;
 import jpashop.simpleshop.repositpory.ItemRepository;
-import jpashop.simpleshop.repositpory.MemberRepository;
+import jpashop.simpleshop.repositpory.MemberRepositoryOld;
 import jpashop.simpleshop.repositpory.OrderRepository;
 import jpashop.simpleshop.repositpory.OrderSearch;
 import lombok.RequiredArgsConstructor;
@@ -21,7 +21,7 @@ import java.util.List;
 public class OrderService {
 
     private final OrderRepository orderRepository;
-    private final MemberRepository memberRepository;
+    private final MemberRepositoryOld memberRepository;
     private final ItemRepository itemRepository;
 
     /**
