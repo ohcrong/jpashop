@@ -2,6 +2,7 @@ package jpashop.simpleshop.service;
 
 import jpashop.simpleshop.domain.Member;
 import jpashop.simpleshop.repositpory.MemberRepositoryOld;
+import jpashop.simpleshop.repositpory.order.MemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,11 +13,12 @@ import java.util.List;
 @Transactional(readOnly = true) //public 메서드에는 공통 적용
 public class MemberService {
 
-    private final MemberRepositoryOld memberRepository;
+    private final MemberRepository memberRepository;
     //변경 방지, 컴파일시점에 생성자 다시 체크
 
     @Autowired
-    public MemberService(MemberRepositoryOld memberRepository) {
+    public MemberService(MemberRepository memberRepository) {
+
         this.memberRepository = memberRepository;
     }
     //setter인젝션처럼 변경 방지
@@ -49,12 +51,13 @@ public class MemberService {
     }
 
     public Member findOne(Long memberId) {
-        return memberRepository.findOne(memberId);
+
+        return memberRepository.findById(memberId).get();
     }
 
     @Transactional
     public void update(Long id, String name) {
-        Member member = memberRepository.findOne(id);
+        Member member = memberRepository.findById(id).get();
         member.setName(name);
     }
 }
