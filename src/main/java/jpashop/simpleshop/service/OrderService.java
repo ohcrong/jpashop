@@ -9,6 +9,7 @@ import jpashop.simpleshop.repositpory.ItemRepository;
 import jpashop.simpleshop.repositpory.MemberRepositoryOld;
 import jpashop.simpleshop.repositpory.OrderRepository;
 import jpashop.simpleshop.repositpory.OrderSearch;
+import jpashop.simpleshop.repositpory.order.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,7 +22,7 @@ import java.util.List;
 public class OrderService {
 
     private final OrderRepository orderRepository;
-    private final MemberRepositoryOld memberRepository;
+    private final MemberRepository memberRepository;
     private final ItemRepository itemRepository;
 
     /**
@@ -30,7 +31,7 @@ public class OrderService {
     @Transactional
     public Long order(Long memberId, Long itemId, int count) {
         //엔티티 조회
-        Member member = memberRepository.findOne(memberId);
+        Member member = memberRepository.findById(memberId).get();
         Item item = itemRepository.findOne(itemId);
 
         //배송정보 생성
